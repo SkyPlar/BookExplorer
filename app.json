@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "mobileTest",
-    "slug": "mobileTest",
+    "slug": "mobiletest",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -13,7 +13,8 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.example.mobileTest"
     },
     "android": {
       "adaptiveIcon": {
@@ -23,6 +24,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "78db20dd-4ed0-48c7-9421-5fb487aea82c"
+      }
+    },
+    "owner": "kitsoftdevversion"
   }
 }
