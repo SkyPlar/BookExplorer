@@ -5,14 +5,14 @@ import HomeScreen from './screens/HomeScreen';
 import DetailsScreen from './screens/DetailsScreen';
 
 const Stack = createNativeStackNavigator();
+// OVERALL
 // NOTE: add eslint, prettier
-
+// NOTE: create new project name instead of "mobile" or "mobileTest"
 // NOTE: need more logic for
 // - tab screens, stack screens;
 // - fonts, splash screen;
 // - add translations, multi-language support, redux.
 
-// NOTE: create new project name instead of "mobile" or "mobileTest"
 export default function App() {
   return (
     <NavigationContainer>

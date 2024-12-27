@@ -98,6 +98,7 @@ const HomeScreen = ({ navigation }) => {
             style={styles.bookItem}
             onPress={() => navigateToDetails(books.find(el => el.id === item.id))}
           >
+            {/* NOTE: no inline styles, try to move them into StyleSheet */}
             <Image source={Book} style={{ width: 75, height: 75, marginRight: 20 }} />
             <View style={styles.bookInfo}>
               {/* NOTE: create custom flexible component for Text, Cards and other repeatable things  */}
