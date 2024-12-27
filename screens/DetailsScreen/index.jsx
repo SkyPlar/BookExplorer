@@ -55,6 +55,7 @@ const styles = StyleSheet.create({
 });
 
 const DetailsScreen = ({ route, navigation }) => {
+  // NOTE: add checks for route.params. what happened if you won't add any options for this screen, during navigation.navigate?
   const book = route.params;
 
   React.useEffect(() => {

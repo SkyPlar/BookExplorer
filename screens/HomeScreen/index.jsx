@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, TextInput, FlatList, StyleSheet, Image, Platform } from 'react-native';
-import Book from '../../assets/images/book.png';
 import axios from 'axios';
+import Book from '../../assets/images/book.png';
 
 const styles = StyleSheet.create({
   container: {
@@ -82,6 +82,7 @@ const HomeScreen = ({ navigation }) => {
   }, [navigation]);
 
   return (
+    // NOTE: create and add custom NavigationBar with opportunity to use one single component for all screens
     <View style={styles.container}>
       <TextInput
         style={styles.input}
@@ -99,6 +100,7 @@ const HomeScreen = ({ navigation }) => {
           >
             <Image source={Book} style={{ width: 75, height: 75, marginRight: 20 }} />
             <View style={styles.bookInfo}>
+              {/* NOTE: create custom flexible component for Text, Cards and other repeatable things  */}
               <Text style={styles.title}>{item.title}</Text>
               <Text style={styles.author}>{item.author}</Text>
             </View>

@@ -1,3 +1,4 @@
+// NOTE: use some free API/APIs instead of own local express server
 const express = require('express');
 const cors = require('cors');
 
