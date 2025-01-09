@@ -1,0 +1,25 @@
+{
+  "locale": "uk",
+  "HomeScreen": {
+    "searchPlaceholder": "Введіть назву або автора книги",
+    "noBooksFound": "Книги не знайдено"
+  },
+  "DetailsScreen": {
+    "noBookDetails": "Інформація про книгу відсутня. Будь ласка, поверніться назад і спробуйте ще раз.",
+    "backToSearch": "Повернутися до пошуку",
+    "noDescriptionAvailable": "Опис відсутній."
+  },
+  "FavoritesScreen": {
+    "favoriteTitle": "Улюблені книги",
+    "noFavoriteBooks": "Улюблених книг ще не додано."
+  },
+  "Navigation": {
+    "bookstoreTitle": "Книжковий Магазин"
+  },
+  "TabLabels": {
+    "Home": "Головна",
+    "Categories": "Категорії",
+    "Favorites": "Обрані",
+    "Settings": "Налаштування"
+  }
+}

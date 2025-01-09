@@ -1,0 +1,25 @@
+{
+  "locale": "en",
+  "HomeScreen": {
+    "searchPlaceholder": "Enter the name or author of the book",
+    "noBooksFound": "No books found"
+  },
+  "DetailsScreen": {
+    "noBookDetails": "No book details available. Please go back and try again.",
+    "backToSearch": "Back to Search",
+    "noDescriptionAvailable": "No description available."
+  },
+  "FavoritesScreen": {
+    "favoriteTitle": "Favorite Books",
+    "noFavoriteBooks": "No favorite books added yet."
+  },
+  "Navigation": {
+    "bookstoreTitle": "Bookstore"
+  },
+  "TabLabels": {
+    "Home": "Home",
+    "Categories": "Categories",
+    "Favorites": "Favorites",
+    "Settings": "Settings"
+  }
+}

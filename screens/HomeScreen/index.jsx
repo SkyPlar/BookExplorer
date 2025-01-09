@@ -1,106 +1,109 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, TextInput, FlatList, StyleSheet, Image, Platform } from 'react-native';
-import Book from '../../assets/images/book.png';
+import React, { useState, useEffect, useCallback } from 'react';
+import { View, TextInput, FlatList, StyleSheet, Image, TouchableOpacity, Text, ActivityIndicator } from 'react-native';
 import axios from 'axios';
+import Book from '../../assets/images/book.png';
+import CustomText from './components/CustomText';
+import config from "../../config.json";
+import { translate } from "react-translate";
+
+const { keyToken } = config;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginRight: 15,
+    marginLeft: 15,
     paddingTop: 50,
     paddingHorizontal: 10,
   },
   input: {
     height: 40,
-    marginVertical: 12,
+    marginVertical: 15,
     borderWidth: 1,
     padding: 10,
     borderRadius: 10,
     borderColor: '#ccc',
-    ...Platform.select({
-      ios: {
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.2,
-        shadowRadius: 1.2,
-      },
-      android: {
-        color: 'red',
-      },
-    }),
   },
   bookItem: {
     flexDirection: 'row',
     marginBottom: 10,
+    paddingBottom: 10,
+    borderBottomWidth: 1,
     alignItems: 'center',
   },
-  title: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    ...Platform.select({
-      ios: {
-        color: '#333',
-      },
-      android: {
-        color: '#000',
-      },
-    }),
+  bookInfo: {
+    flexDirection: 'column',
   },
-  author: {
-    fontSize: 14,
-    ...Platform.select({
-      ios: {
-        fontWeight: '500',
-      },
-      android: {
-        fontWeight: 'bold',
-      },
-    }),
+  image: {
+    width: 75,
+    height: 75,
+    marginRight: 20,
+  },
+  noBooksText: {
+    textAlign: 'center',
+    marginTop: 20,
   },
 });
 
-const HomeScreen = ({ navigation }) => {
-  const [searchQuery, setSearchQuery] = React.useState('');
-  const [books, setBooks] = React.useState([]);
+const HomeScreen = ({ navigation, t }) => {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [books, setBooks] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  React.useEffect(() => {
-    axios.get('http://192.168.2.57:3000/api/books')
-      .then(response => {
-        setBooks(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching books:', error);
-      });
-  }, []);
+  useEffect(() => {
+    if (searchQuery.length > 2) {
+      setIsLoading(true);
+      const fetchBooks = async () => {
+        const encodedQuery = encodeURIComponent(searchQuery);
+        const url = `https://www.googleapis.com/books/v1/volumes?q=${encodedQuery}&key=${keyToken}`;
+        try {
+          const response = await axios.get(url);
+          setBooks(response.data.items || []);
+        } catch (error) {
+          console.error('Error fetching books:', error);
+        } finally {
+          setIsLoading(false);
+        }
+      };
+      fetchBooks();
+    } else {
+      setBooks([]);
+    }
+  }, [searchQuery]);
 
-  const filteredBooks = books.filter(book =>
-    book.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    book.author.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
-  const navigateToDetails = React.useCallback((book) => {
-    navigation.navigate('Details', book);
+  const navigateToDetails = useCallback((book) => {
+    navigation.navigate('Details', { ...book.volumeInfo, id: book.id, description: book.volumeInfo.description });
   }, [navigation]);
 
   return (
     <View style={styles.container}>
       <TextInput
         style={styles.input}
-        placeholder="Пошук книг..."
+        placeholder={t('searchPlaceholder')}
         value={searchQuery}
-        onChangeText={text => { setSearchQuery(text); }}
+        onChangeText={setSearchQuery}
+        clearButtonMode="while-editing"
       />
+      {isLoading && <ActivityIndicator size="large" color="#0000ff" />}
+      {!isLoading && books.length === 0 && searchQuery.length > 2 && (
+        <Text style={styles.noBooksText}>{t('noBooksFound')}</Text>
+      )}
       <FlatList
-        data={filteredBooks}
-        keyExtractor={item => item.id}
+        data={books}
+        keyExtractor={item => item.id.toString()}
         renderItem={({ item }) => (
           <TouchableOpacity
             style={styles.bookItem}
-            onPress={() => navigateToDetails(books.find(el => el.id === item.id))}
+            onPress={() => navigateToDetails(item)}
           >
-            <Image source={Book} style={{ width: 75, height: 75, marginRight: 20 }} />
+            <Image
+              source={item.volumeInfo.imageLinks?.thumbnail ? { uri: item.volumeInfo.imageLinks.thumbnail } : Book}
+              style={styles.image}
+              resizeMode="contain"
+            />
             <View style={styles.bookInfo}>
-              <Text style={styles.title}>{item.title}</Text>
-              <Text style={styles.author}>{item.author}</Text>
+              <CustomText type="title">{item.volumeInfo.title}</CustomText>
+              <CustomText type="author">{item.volumeInfo.authors?.join(', ')}</CustomText>
             </View>
           </TouchableOpacity>
         )}
@@ -108,5 +111,6 @@ const HomeScreen = ({ navigation }) => {
     </View>
   );
 };
+const screen = translate('HomeScreen')(HomeScreen);
 
-export default HomeScreen;
+export default screen;
