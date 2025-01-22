@@ -7,7 +7,8 @@
   "DetailsScreen": {
     "noBookDetails": "Інформація про книгу відсутня. Будь ласка, поверніться назад і спробуйте ще раз.",
     "backToSearch": "Повернутися до пошуку",
-    "noDescriptionAvailable": "Опис відсутній."
+    "noDescriptionAvailable": "Опис відсутній.",
+    "unknownTitle": "Невідома назва"
   },
   "FavoritesScreen": {
     "favoriteTitle": "Улюблені книги",

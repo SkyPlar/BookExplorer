@@ -7,7 +7,8 @@
   "DetailsScreen": {
     "noBookDetails": "No book details available. Please go back and try again.",
     "backToSearch": "Back to Search",
-    "noDescriptionAvailable": "No description available."
+    "noDescriptionAvailable": "No description available.",
+    "unknownTitle": "Unknown Title"
   },
   "FavoritesScreen": {
     "favoriteTitle": "Favorite Books",

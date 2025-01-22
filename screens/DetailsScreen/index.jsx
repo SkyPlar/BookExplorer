@@ -82,24 +82,31 @@ const styles = StyleSheet.create({
 
 const DetailsScreen = ({ route, navigation, t }) => {
   const book = route.params;
+  const {
+    id,
+    title = t('unknownTitle'),
+    authors = [],
+    description = t('noDescriptionAvailable'),
+    imageLinks = {}
+  } = book || {}; 
   const dispatch = useDispatch();
   const favorites = useSelector(state => state.favorites.favorites);
-  const isFavorite = favorites.some(fav => fav.id === book.id);
+  const isFavorite = favorites.some(fav => fav.id === id);
 
   const toggleFavorite = () => {
     if (isFavorite) {
-      dispatch(removeFavorite(book.id));
+      dispatch(removeFavorite(id));
     } else {
       dispatch(addFavorite(book));
     }
   };
 
   React.useEffect(() => {
-    if (!book || !book.id) {
+    if (!book || !id) {
       console.error("Book details are missing.");
       navigation.goBack();
     } else {
-      console.log(`Opened book ${book.id}`);
+      console.log(`Opened book ${id}`);
     }
   }, [book, navigation]);
 
@@ -119,16 +126,16 @@ const DetailsScreen = ({ route, navigation, t }) => {
       <ScrollView style={styles.scrollContainer}>
         <View style={styles.textContainer}>
           <Image 
-            source={book?.imageLinks?.thumbnail ? { uri: book.imageLinks.thumbnail } : require('../../assets/images/book.png')} 
+            source={book?.imageLinks?.thumbnail ? { uri: imageLinks.thumbnail } : require('../../assets/images/png')} 
             style={styles.image} 
           />
           <TouchableOpacity style={styles.favoriteButton} onPress={toggleFavorite}>
             <MaterialCommunityIcons name={isFavorite ? 'heart' : 'heart-outline'} style={styles.favoriteIcon} />
           </TouchableOpacity>
           <View style={styles.textSection}>
-            <Text style={styles.title}>{book.title}</Text>
-            <Text style={styles.author}>{book.authors?.join(', ')}</Text>
-            <Text style={styles.description}>{book.description || t('noDescriptionAvailable')}</Text>
+            <Text style={styles.title}>{title}</Text>
+            <Text style={styles.author}>{authors?.join(', ')}</Text>
+            <Text style={styles.description}>{description}</Text>
           </View>
         </View>
       </ScrollView>
