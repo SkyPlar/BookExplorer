@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image } from 'react-native';
 import { useSelector } from 'react-redux';
-import CustomText from './HomeScreen/components/CustomText';
 import { translate } from "react-translate";
+import CustomText from './HomeScreen/components/CustomText';
 
 const styles = StyleSheet.create({
   container: {
@@ -43,8 +43,11 @@ const styles = StyleSheet.create({
 });
 
 const FavoritesScreen = ({ navigation, t }) => {
+  // add check for favorites
   const favorites = useSelector(state => state.favorites.favorites);
 
+  // function is navigateToDetails, but you navigate to HomeScreen?
+  // if it's navigation to DetailsScreen, you should throw Details into first argument
   const navigateToDetails = (book) => {
     navigation.navigate('Home', {
       screen: 'Details',
@@ -56,6 +59,7 @@ const FavoritesScreen = ({ navigation, t }) => {
     });
   };
 
+  // if favorites is undefined, you will receive fatal error
   if (favorites.length === 0) {
     return (
       <View style={styles.container}>

@@ -15,6 +15,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: Platform.OS === 'ios' ? '500' : 'bold',
     color: '#666',
+    marginTop: 10
   },
   description: {
     fontSize: 12,
@@ -23,6 +24,7 @@ const styles = StyleSheet.create({
 });
 
 const CustomText = ({ text, style, type = 'default' }) => {
+  // check for: text
   const textStyle = [styles[type] || styles.default, style];
 
   return <Text style={textStyle}>{text}</Text>;

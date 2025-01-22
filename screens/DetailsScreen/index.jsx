@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image, Platform } from 'react-native';
-import themeSettings from '../../theme';
 import { useDispatch, useSelector } from 'react-redux';
-import { addFavorite, removeFavorite } from '../../actions';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { translate } from "react-translate";
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import themeSettings from '../../theme';
+import { addFavorite, removeFavorite } from '../../actions';
 
 const styles = StyleSheet.create({
   container: {
@@ -88,7 +88,7 @@ const DetailsScreen = ({ route, navigation, t }) => {
     authors = [],
     description = t('noDescriptionAvailable'),
     imageLinks = {}
-  } = book || {}; 
+  } = book || {};
   const dispatch = useDispatch();
   const favorites = useSelector(state => state.favorites.favorites);
   const isFavorite = favorites.some(fav => fav.id === id);
@@ -112,12 +112,12 @@ const DetailsScreen = ({ route, navigation, t }) => {
 
   if (!book) {
     return (
-					<View style={styles.container}>
-							<Text style={styles.errorText}>{t('noBookDetails')}</Text>
-							<TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-									<Text style={styles.backButtonText}>{t('backToSearch')}</Text>
-							</TouchableOpacity>
-					</View>
+      <View style={styles.container}>
+        <Text style={styles.errorText}>{t('noBookDetails')}</Text>
+        <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+          <Text style={styles.backButtonText}>{t('backToSearch')}</Text>
+        </TouchableOpacity>
+      </View>
     );
   }
 
@@ -125,9 +125,10 @@ const DetailsScreen = ({ route, navigation, t }) => {
     <View style={styles.container}>
       <ScrollView style={styles.scrollContainer}>
         <View style={styles.textContainer}>
-          <Image 
-            source={book?.imageLinks?.thumbnail ? { uri: imageLinks.thumbnail } : require('../../assets/images/png')} 
-            style={styles.image} 
+          <Image
+            // fatal error because of: require('../../assets/images/png')
+            // source={book?.imageLinks?.thumbnail ? { uri: imageLinks.thumbnail } : require('../../assets/images/png')}
+            style={styles.image}
           />
           <TouchableOpacity style={styles.favoriteButton} onPress={toggleFavorite}>
             <MaterialCommunityIcons name={isFavorite ? 'heart' : 'heart-outline'} style={styles.favoriteIcon} />

@@ -1,3 +1,4 @@
+// if you don't use it, you can delete it
 const express = require('express');
 const cors = require('cors');
 

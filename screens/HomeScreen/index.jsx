@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { View, TextInput, FlatList, StyleSheet, Image, TouchableOpacity, Text, ActivityIndicator } from 'react-native';
 import axios from 'axios';
+import { translate } from "react-translate";
 import Book from '../../assets/images/book.png';
 import CustomText from './components/CustomText';
 import config from "../../config.json";
-import { translate } from "react-translate";
 
 const { keyToken } = config;
 
@@ -53,6 +53,7 @@ const HomeScreen = ({ navigation, t }) => {
   useEffect(() => {
     if (searchQuery.length > 2) {
       setIsLoading(true);
+      // create service for working with APIs
       const fetchBooks = async () => {
         const encodedQuery = encodeURIComponent(searchQuery);
         const url = `https://www.googleapis.com/books/v1/volumes?q=${encodedQuery}&key=${keyToken}`;
@@ -72,6 +73,8 @@ const HomeScreen = ({ navigation, t }) => {
   }, [searchQuery]);
 
   const navigateToDetails = useCallback((book) => {
+    // what will happen during navigation to the DetailsScreen, if you did not pass options to navigate?
+    // what if you don't have a description, for example?
     navigation.navigate('Details', { ...book.volumeInfo, id: book.id, description: book.volumeInfo.description });
   }, [navigation]);
 
@@ -102,8 +105,8 @@ const HomeScreen = ({ navigation, t }) => {
               resizeMode="contain"
             />
             <View style={styles.bookInfo}>
-              <CustomText type="title">{item.volumeInfo.title}</CustomText>
-              <CustomText type="author">{item.volumeInfo.authors?.join(', ')}</CustomText>
+              <CustomText type="title" text={item.volumeInfo.title} />
+              <CustomText type="author" text={item.volumeInfo.authors?.join(', ')} />
             </View>
           </TouchableOpacity>
         )}
@@ -114,3 +117,10 @@ const HomeScreen = ({ navigation, t }) => {
 const screen = translate('HomeScreen')(HomeScreen);
 
 export default screen;
+
+
+/*
+* main
+* dev -> main
+* review_... from main
+* */
