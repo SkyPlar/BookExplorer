@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: 'bold',
+    wordWrap: 'break-word',
     color: Platform.OS === 'ios' ? '#333' : '#000',
   },
   author: {
@@ -22,7 +23,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const CustomText = ({ text, style, type = 'default' }) => {
+const CustomText = ({ text= '', style, type = 'default' }) => {
   const textStyle = [styles[type] || styles.default, style];
 
   return <Text style={textStyle}>{text}</Text>;

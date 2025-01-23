@@ -43,7 +43,8 @@ const styles = StyleSheet.create({
 });
 
 const FavoritesScreen = ({ navigation, t }) => {
-  const favorites = useSelector(state => state.favorites.favorites);
+  const translate = t || ((key) => key);
+  const favorites = useSelector(state => state.favorites.favorites) || [];
 
   const navigateToDetails = (book) => {
     navigation.navigate('Home', {
@@ -59,15 +60,15 @@ const FavoritesScreen = ({ navigation, t }) => {
   if (favorites.length === 0) {
     return (
       <View style={styles.container}>
-        <Text style={styles.header}>{t('favoriteTitle')}</Text>
-        <Text style={styles.noFavoritesText}>{t('noFavoriteBooks')}</Text>
+        <Text style={styles.header}>{translate('favoriteTitle')}</Text>
+        <Text style={styles.noFavoritesText}>{translate('noFavoriteBooks')}</Text>
       </View>
     );
   }
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>{t('favoriteTitle')}</Text>
+      <Text style={styles.header}>{translate('favoriteTitle')}</Text>
       <FlatList
         data={favorites}
         keyExtractor={(item) => item.id.toString()}
@@ -82,8 +83,8 @@ const FavoritesScreen = ({ navigation, t }) => {
               resizeMode="contain"
             />
             <View style={styles.bookInfo}>
-              <CustomText type="title">{item.title}</CustomText>
-              <CustomText type="author">{item.authors?.join(', ')}</CustomText>
+              <CustomText type="title" text={item.title}>{item.title}</CustomText>
+              <CustomText type="author" text={item.authors?.join(', ')}>{item.authors?.join(', ')}</CustomText>
             </View>
           </TouchableOpacity>
         )}

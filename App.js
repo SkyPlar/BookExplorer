@@ -55,8 +55,12 @@ const App = ({ t }) => {
               },
               tabBarActiveTintColor: 'tomato',
               tabBarInactiveTintColor: 'gray',
-              tabBarLabelStyle: { paddingBottom: 5, fontSize: 10 },
-              tabBarStyle: { paddingVertical: 5, height: 60 },
+              tabBarLabelStyle: { paddingBottom: 10, fontSize: 10 },
+              tabBarStyle: { 
+                paddingVertical: 5, 
+                height: 60, 
+                marginBottom: 10
+              },
             })}
           >
             <Tab.Screen

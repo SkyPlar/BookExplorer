@@ -3,10 +3,10 @@ import { View, TextInput, FlatList, StyleSheet, Image, TouchableOpacity, Text, A
 import axios from 'axios';
 import Book from '../../assets/images/book.png';
 import CustomText from './components/CustomText';
-import config from "../../config.json";
 import { translate } from "react-translate";
+import 'dotenv/config';
 
-const { keyToken } = config;
+const keyToken = process.env.REACT_APP_API_KEY;
 
 const styles = StyleSheet.create({
   container: {
@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   bookInfo: {
+    width: '70%',
     flexDirection: 'column',
   },
   image: {
@@ -102,8 +103,8 @@ const HomeScreen = ({ navigation, t }) => {
               resizeMode="contain"
             />
             <View style={styles.bookInfo}>
-              <CustomText type="title">{item.volumeInfo.title}</CustomText>
-              <CustomText type="author">{item.volumeInfo.authors?.join(', ')}</CustomText>
+              <CustomText type="title" text={item.volumeInfo.title}>{item.volumeInfo.title}</CustomText>
+              <CustomText type="author" text={item.volumeInfo.authors?.join(', ')}>{item.volumeInfo.authors?.join(', ')}</CustomText>
             </View>
           </TouchableOpacity>
         )}

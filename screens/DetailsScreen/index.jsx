@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
   textContainer: {
     flexDirection: 'row',
     padding: 20,
-				marginBottom: 20,
+    marginBottom: 20,
     alignItems: 'flex-start',
   },
   image: {
@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
   },
   scrollContainer: {
     flex: 1,
+    marginBottom: 50,
   },
   textSection: {
     flex: 1,
@@ -37,6 +38,8 @@ const styles = StyleSheet.create({
   },
   description: {
     ...themeSettings.typography.textStyles.text,
+    flex: 1,
+    paddingTop: 20,
   },
   backButton: {
     backgroundColor: '#007AFF',
@@ -122,27 +125,31 @@ const DetailsScreen = ({ route, navigation, t }) => {
   }
 
   return (
+    <>
     <View style={styles.container}>
       <ScrollView style={styles.scrollContainer}>
-        <View style={styles.textContainer}>
+        <View style={{ flexDirection: 'row', padding: 20 }}>
           <Image 
-            source={book?.imageLinks?.thumbnail ? { uri: imageLinks.thumbnail } : require('../../assets/images/png')} 
-            style={styles.image} 
+            source={book?.imageLinks?.thumbnail ? { uri: imageLinks.thumbnail } : require('../../assets/images/book.png')}
+            style={styles.image}
           />
+          <View style={{ flex: 1, paddingLeft: 20 }}>
+            <Text style={styles.title}>{title}</Text>
+            <Text style={styles.author}>{authors.join(', ')}</Text>
+          </View>
           <TouchableOpacity style={styles.favoriteButton} onPress={toggleFavorite}>
             <MaterialCommunityIcons name={isFavorite ? 'heart' : 'heart-outline'} style={styles.favoriteIcon} />
           </TouchableOpacity>
-          <View style={styles.textSection}>
-            <Text style={styles.title}>{title}</Text>
-            <Text style={styles.author}>{authors?.join(', ')}</Text>
-            <Text style={styles.description}>{description}</Text>
-          </View>
+        </View>
+        <View style={{ paddingHorizontal: 20 }}>
+          <Text style={styles.description}>{description}</Text>
         </View>
       </ScrollView>
       <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
         <Text style={styles.backButtonText}>{t('backToSearch')}</Text>
       </TouchableOpacity>
     </View>
+  </>
   );
 };
 
