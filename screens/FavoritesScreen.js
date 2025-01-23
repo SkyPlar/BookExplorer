@@ -4,44 +4,6 @@ import { useSelector } from 'react-redux';
 import CustomText from './HomeScreen/components/CustomText';
 import { translate } from "react-translate";
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: 10,
-    marginRight: 15,
-    marginLeft: 15,
-    paddingTop: 20,
-    paddingHorizontal: 10,
-  },
-  header: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    marginBottom: 20,
-    textAlign: 'center',
-  },
-  bookItem: {
-    flexDirection: 'row',
-    marginBottom: 10,
-    alignItems: 'center',
-    borderBottomWidth: 1,
-    paddingBottom: 10,
-  },
-  bookInfo: {
-    flexDirection: 'column',
-    flex: 1,
-  },
-  image: {
-    width: 75,
-    height: 75,
-    marginRight: 20,
-  },
-  noFavoritesText: {
-    textAlign: 'center',
-    marginTop: 20,
-    fontSize: 16,
-  },
-});
-
 const FavoritesScreen = ({ navigation, t }) => {
   const translate = t || ((key) => key);
   const favorites = useSelector(state => state.favorites.favorites) || [];
@@ -92,6 +54,44 @@ const FavoritesScreen = ({ navigation, t }) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop: 10,
+    marginRight: 15,
+    marginLeft: 15,
+    paddingTop: 20,
+    paddingHorizontal: 10,
+  },
+  header: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+  bookItem: {
+    flexDirection: 'row',
+    marginBottom: 10,
+    alignItems: 'center',
+    borderBottomWidth: 1,
+    paddingBottom: 10,
+  },
+  bookInfo: {
+    flexDirection: 'column',
+    flex: 1,
+  },
+  image: {
+    width: 75,
+    height: 75,
+    marginRight: 20,
+  },
+  noFavoritesText: {
+    textAlign: 'center',
+    marginTop: 20,
+    fontSize: 16,
+  },
+});
 
 const translated = translate('FavoritesScreen')(FavoritesScreen);
 

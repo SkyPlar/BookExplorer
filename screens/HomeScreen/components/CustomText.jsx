@@ -1,6 +1,12 @@
 import React from 'react';
 import { Text, StyleSheet, Platform } from 'react-native';
 
+const CustomText = ({ text= '', style, type = 'default' }) => {
+  const textStyle = [styles[type] || styles.default, style];
+
+  return <Text style={textStyle}>{text}</Text>;
+};
+
 const styles = StyleSheet.create({
   default: {
     fontSize: 16,
@@ -22,11 +28,5 @@ const styles = StyleSheet.create({
     color: '#888',
   }
 });
-
-const CustomText = ({ text= '', style, type = 'default' }) => {
-  const textStyle = [styles[type] || styles.default, style];
-
-  return <Text style={textStyle}>{text}</Text>;
-};
 
 export default CustomText;

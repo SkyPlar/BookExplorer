@@ -1,45 +1,53 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image, Platform } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  ScrollView,
+  Image,
+  Platform
+} from 'react-native';
 import themeSettings from '../../theme';
 import { useDispatch, useSelector } from 'react-redux';
 import { addFavorite, removeFavorite } from '../../actions';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { translate } from "react-translate";
+import { translate } from 'react-translate';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 1
   },
   textContainer: {
     flexDirection: 'row',
     padding: 20,
     marginBottom: 20,
-    alignItems: 'flex-start',
+    alignItems: 'flex-start'
   },
   image: {
     width: 100,
     height: 150,
-    marginRight: 20,
+    marginRight: 20
   },
   scrollContainer: {
     flex: 1,
-    marginBottom: 50,
+    marginBottom: 50
   },
   textSection: {
-    flex: 1,
+    flex: 1
   },
   title: {
     ...themeSettings.typography.textStyles.title,
-    marginBottom: 10,
+    marginBottom: 10
   },
   author: {
     ...themeSettings.typography.textStyles.title,
-    marginBottom: 10,
+    marginBottom: 10
   },
   description: {
     ...themeSettings.typography.textStyles.text,
     flex: 1,
-    paddingTop: 20,
+    paddingTop: 20
   },
   backButton: {
     backgroundColor: '#007AFF',
@@ -49,24 +57,26 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     position: 'absolute',
     bottom: 0,
-    ...Platform.OS === 'ios' ? {
-      shadowColor: '#000',
-      shadowOffset: { width: 0, height: 2 },
-      shadowOpacity: 0.5,
-      shadowRadius: 3,
-    } : {
-      elevation: 4,
-    },
+    ...(Platform.OS === 'ios'
+      ? {
+          shadowColor: '#000',
+          shadowOffset: { width: 0, height: 2 },
+          shadowOpacity: 0.5,
+          shadowRadius: 3
+        }
+      : {
+          elevation: 4
+        })
   },
   backButtonText: {
     color: 'white',
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: '600'
   },
   errorText: {
     textAlign: 'center',
     marginTop: 20,
-    fontSize: 18,
+    fontSize: 18
   },
   favoriteButton: {
     position: 'absolute',
@@ -75,12 +85,12 @@ const styles = StyleSheet.create({
     padding: 8,
     backgroundColor: 'rgba(255, 255, 255, 0.8)',
     borderRadius: 30,
-    zIndex: 1,
+    zIndex: 1
   },
   favoriteIcon: {
     fontSize: 24,
-    color: 'red',
-  },
+    color: 'red'
+  }
 });
 
 const DetailsScreen = ({ route, navigation, t }) => {
@@ -91,10 +101,10 @@ const DetailsScreen = ({ route, navigation, t }) => {
     authors = [],
     description = t('noDescriptionAvailable'),
     imageLinks = {}
-  } = book || {}; 
+  } = book || {};
   const dispatch = useDispatch();
-  const favorites = useSelector(state => state.favorites.favorites);
-  const isFavorite = favorites.some(fav => fav.id === id);
+  const favorites = useSelector((state) => state.favorites.favorites);
+  const isFavorite = favorites.some((fav) => fav.id === id);
 
   const toggleFavorite = () => {
     if (isFavorite) {
@@ -106,7 +116,7 @@ const DetailsScreen = ({ route, navigation, t }) => {
 
   React.useEffect(() => {
     if (!book || !id) {
-      console.error("Book details are missing.");
+      console.error('Book details are missing.');
       navigation.goBack();
     } else {
       console.log(`Opened book ${id}`);
@@ -115,41 +125,48 @@ const DetailsScreen = ({ route, navigation, t }) => {
 
   if (!book) {
     return (
-					<View style={styles.container}>
-							<Text style={styles.errorText}>{t('noBookDetails')}</Text>
-							<TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-									<Text style={styles.backButtonText}>{t('backToSearch')}</Text>
-							</TouchableOpacity>
-					</View>
+      <View style={styles.container}>
+        <Text style={styles.errorText}>{t('noBookDetails')}</Text>
+        <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+          <Text style={styles.backButtonText}>{t('backToSearch')}</Text>
+        </TouchableOpacity>
+      </View>
     );
   }
 
   return (
     <>
-    <View style={styles.container}>
-      <ScrollView style={styles.scrollContainer}>
-        <View style={{ flexDirection: 'row', padding: 20 }}>
-          <Image 
-            source={book?.imageLinks?.thumbnail ? { uri: imageLinks.thumbnail } : require('../../assets/images/book.png')}
-            style={styles.image}
-          />
-          <View style={{ flex: 1, paddingLeft: 20 }}>
-            <Text style={styles.title}>{title}</Text>
-            <Text style={styles.author}>{authors.join(', ')}</Text>
+      <View style={styles.container}>
+        <ScrollView style={styles.scrollContainer}>
+          <View style={{ flexDirection: 'row', padding: 20 }}>
+            <Image
+              source={
+                book?.imageLinks?.thumbnail
+                  ? { uri: imageLinks.thumbnail }
+                  : require('../../assets/images/book.png')
+              }
+              style={styles.image}
+            />
+            <View style={{ flex: 1, paddingLeft: 20 }}>
+              <Text style={styles.title}>{title}</Text>
+              <Text style={styles.author}>{authors.join(', ')}</Text>
+            </View>
+            <TouchableOpacity style={styles.favoriteButton} onPress={toggleFavorite}>
+              <MaterialCommunityIcons
+                name={isFavorite ? 'heart' : 'heart-outline'}
+                style={styles.favoriteIcon}
+              />
+            </TouchableOpacity>
           </View>
-          <TouchableOpacity style={styles.favoriteButton} onPress={toggleFavorite}>
-            <MaterialCommunityIcons name={isFavorite ? 'heart' : 'heart-outline'} style={styles.favoriteIcon} />
-          </TouchableOpacity>
-        </View>
-        <View style={{ paddingHorizontal: 20 }}>
-          <Text style={styles.description}>{description}</Text>
-        </View>
-      </ScrollView>
-      <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-        <Text style={styles.backButtonText}>{t('backToSearch')}</Text>
-      </TouchableOpacity>
-    </View>
-  </>
+          <View style={{ paddingHorizontal: 20 }}>
+            <Text style={styles.description}>{description}</Text>
+          </View>
+        </ScrollView>
+        <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+          <Text style={styles.backButtonText}>{t('backToSearch')}</Text>
+        </TouchableOpacity>
+      </View>
+    </>
   );
 };
 
