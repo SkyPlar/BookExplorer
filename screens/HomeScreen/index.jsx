@@ -3,47 +3,10 @@ import { View, TextInput, FlatList, StyleSheet, Image, TouchableOpacity, Text, A
 import axios from 'axios';
 import Book from '../../assets/images/book.png';
 import CustomText from './components/CustomText';
-import config from "../../config.json";
 import { translate } from "react-translate";
+import 'dotenv/config';
 
-const { keyToken } = config;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginRight: 15,
-    marginLeft: 15,
-    paddingTop: 50,
-    paddingHorizontal: 10,
-  },
-  input: {
-    height: 40,
-    marginVertical: 15,
-    borderWidth: 1,
-    padding: 10,
-    borderRadius: 10,
-    borderColor: '#ccc',
-  },
-  bookItem: {
-    flexDirection: 'row',
-    marginBottom: 10,
-    paddingBottom: 10,
-    borderBottomWidth: 1,
-    alignItems: 'center',
-  },
-  bookInfo: {
-    flexDirection: 'column',
-  },
-  image: {
-    width: 75,
-    height: 75,
-    marginRight: 20,
-  },
-  noBooksText: {
-    textAlign: 'center',
-    marginTop: 20,
-  },
-});
+const keyToken = process.env.REACT_APP_API_KEY;
 
 const HomeScreen = ({ navigation, t }) => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -102,8 +65,8 @@ const HomeScreen = ({ navigation, t }) => {
               resizeMode="contain"
             />
             <View style={styles.bookInfo}>
-              <CustomText type="title">{item.volumeInfo.title}</CustomText>
-              <CustomText type="author">{item.volumeInfo.authors?.join(', ')}</CustomText>
+              <CustomText type="title" text={item.volumeInfo.title}>{item.volumeInfo.title}</CustomText>
+              <CustomText type="author" text={item.volumeInfo.authors?.join(', ')}>{item.volumeInfo.authors?.join(', ')}</CustomText>
             </View>
           </TouchableOpacity>
         )}
@@ -111,6 +74,45 @@ const HomeScreen = ({ navigation, t }) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginRight: 15,
+    marginLeft: 15,
+    paddingTop: 50,
+    paddingHorizontal: 10,
+  },
+  input: {
+    height: 40,
+    marginVertical: 15,
+    borderWidth: 1,
+    padding: 10,
+    borderRadius: 10,
+    borderColor: '#ccc',
+  },
+  bookItem: {
+    flexDirection: 'row',
+    marginBottom: 10,
+    paddingBottom: 10,
+    borderBottomWidth: 1,
+    alignItems: 'center',
+  },
+  bookInfo: {
+    width: '70%',
+    flexDirection: 'column',
+  },
+  image: {
+    width: 75,
+    height: 75,
+    marginRight: 20,
+  },
+  noBooksText: {
+    textAlign: 'center',
+    marginTop: 20,
+  },
+});
+
 const screen = translate('HomeScreen')(HomeScreen);
 
 export default screen;

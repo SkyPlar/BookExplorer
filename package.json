@@ -16,6 +16,7 @@
     "axios": "^1.7.9",
     "body-parser": "^1.20.3",
     "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
     "expo": "~52.0.17",
     "expo-font": "^13.0.2",
     "expo-localization": "^16.0.0",

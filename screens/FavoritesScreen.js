@@ -4,6 +4,57 @@ import { useSelector } from 'react-redux';
 import CustomText from './HomeScreen/components/CustomText';
 import { translate } from "react-translate";
 
+const FavoritesScreen = ({ navigation, t }) => {
+  const translate = t || ((key) => key);
+  const favorites = useSelector(state => state.favorites.favorites) || [];
+
+  const navigateToDetails = (book) => {
+    navigation.navigate('Home', {
+      screen: 'Details',
+      params: {
+        ...book,
+        id: book.id,
+        description: book.description,
+      }
+    });
+  };
+
+  if (favorites.length === 0) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.header}>{translate('favoriteTitle')}</Text>
+        <Text style={styles.noFavoritesText}>{translate('noFavoriteBooks')}</Text>
+      </View>
+    );
+  }
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.header}>{translate('favoriteTitle')}</Text>
+      <FlatList
+        data={favorites}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            style={styles.bookItem}
+            onPress={() => navigateToDetails(item)}
+          >
+            <Image
+              source={item.imageLinks?.thumbnail ? { uri: item.imageLinks.thumbnail } : require('../assets/images/book.png')}
+              style={styles.image}
+              resizeMode="contain"
+            />
+            <View style={styles.bookInfo}>
+              <CustomText type="title" text={item.title}>{item.title}</CustomText>
+              <CustomText type="author" text={item.authors?.join(', ')}>{item.authors?.join(', ')}</CustomText>
+            </View>
+          </TouchableOpacity>
+        )}
+      />
+    </View>
+  );
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -41,56 +92,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
-
-const FavoritesScreen = ({ navigation, t }) => {
-  const favorites = useSelector(state => state.favorites.favorites);
-
-  const navigateToDetails = (book) => {
-    navigation.navigate('Home', {
-      screen: 'Details',
-      params: {
-        ...book,
-        id: book.id,
-        description: book.description,
-      }
-    });
-  };
-
-  if (favorites.length === 0) {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.header}>{t('favoriteTitle')}</Text>
-        <Text style={styles.noFavoritesText}>{t('noFavoriteBooks')}</Text>
-      </View>
-    );
-  }
-
-  return (
-    <View style={styles.container}>
-      <Text style={styles.header}>{t('favoriteTitle')}</Text>
-      <FlatList
-        data={favorites}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            style={styles.bookItem}
-            onPress={() => navigateToDetails(item)}
-          >
-            <Image
-              source={item.imageLinks?.thumbnail ? { uri: item.imageLinks.thumbnail } : require('../assets/images/book.png')}
-              style={styles.image}
-              resizeMode="contain"
-            />
-            <View style={styles.bookInfo}>
-              <CustomText type="title">{item.title}</CustomText>
-              <CustomText type="author">{item.authors?.join(', ')}</CustomText>
-            </View>
-          </TouchableOpacity>
-        )}
-      />
-    </View>
-  );
-};
 
 const translated = translate('FavoritesScreen')(FavoritesScreen);
 
