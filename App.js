@@ -9,7 +9,7 @@ import SettingsScreen from './screens/SettingsScreen';
 import { TranslatorProvider, translate } from 'react-translate';
 import translation from './translation';
 import store from './store';
-// import { SplashScreen } from 'expo-router';
+import { SplashScreen } from 'expo-router';
 import { useFonts } from 'expo-font';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
@@ -23,7 +23,7 @@ const App = ({ t }) => {
 
   React.useEffect(() => {
     if (loaded || error) {
-      // SplashScreen.hideAsync();
+      SplashScreen.hideAsync();
     }
   }, [loaded, error]);
 

@@ -4,9 +4,9 @@ import axios from 'axios';
 import { translate } from "react-translate";
 import Book from '../../assets/images/book.png';
 import CustomText from '../../components/CustomText';
-// import 'dotenv/config';
+import 'dotenv/config';
 
-const keyToken = 'AIzaSyATxrXOGuVHyB6WhfUpJ9C7uhAoxcI2RkI';
+const keyToken = process.env.REACT_APP_API_KEY;
 
 const HomeScreen = ({ navigation, t }) => {
   const [searchQuery, setSearchQuery] = useState('');
