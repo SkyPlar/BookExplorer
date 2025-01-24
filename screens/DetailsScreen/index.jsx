@@ -8,90 +8,11 @@ import {
   Image,
   Platform
 } from 'react-native';
-import themeSettings from '../../theme';
-import { useDispatch, useSelector } from 'react-redux';
-import { addFavorite, removeFavorite } from '../../actions';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { translate } from 'react-translate';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  },
-  textContainer: {
-    flexDirection: 'row',
-    padding: 20,
-    marginBottom: 20,
-    alignItems: 'flex-start'
-  },
-  image: {
-    width: 100,
-    height: 150,
-    marginRight: 20
-  },
-  scrollContainer: {
-    flex: 1,
-    marginBottom: 50
-  },
-  textSection: {
-    flex: 1
-  },
-  title: {
-    ...themeSettings.typography.textStyles.title,
-    marginBottom: 10
-  },
-  author: {
-    ...themeSettings.typography.textStyles.title,
-    marginBottom: 10
-  },
-  description: {
-    ...themeSettings.typography.textStyles.text,
-    flex: 1,
-    paddingTop: 20
-  },
-  backButton: {
-    backgroundColor: '#007AFF',
-    padding: 10,
-    width: '100%',
-    borderRadius: 5,
-    alignItems: 'center',
-    position: 'absolute',
-    bottom: 0,
-    ...(Platform.OS === 'ios'
-      ? {
-          shadowColor: '#000',
-          shadowOffset: { width: 0, height: 2 },
-          shadowOpacity: 0.5,
-          shadowRadius: 3
-        }
-      : {
-          elevation: 4
-        })
-  },
-  backButtonText: {
-    color: 'white',
-    fontSize: 16,
-    fontWeight: '600'
-  },
-  errorText: {
-    textAlign: 'center',
-    marginTop: 20,
-    fontSize: 18
-  },
-  favoriteButton: {
-    position: 'absolute',
-    top: 10,
-    right: 10,
-    padding: 8,
-    backgroundColor: 'rgba(255, 255, 255, 0.8)',
-    borderRadius: 30,
-    zIndex: 1
-  },
-  favoriteIcon: {
-    fontSize: 24,
-    color: 'red'
-  }
-});
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useDispatch, useSelector } from 'react-redux';
+import themeSettings from '../../theme';
+import { addFavorite, removeFavorite } from '../../actions';
 
 const DetailsScreen = ({ route, navigation, t }) => {
   const book = route.params;
@@ -169,6 +90,85 @@ const DetailsScreen = ({ route, navigation, t }) => {
     </>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  },
+  textContainer: {
+    flexDirection: 'row',
+    padding: 20,
+    marginBottom: 20,
+    alignItems: 'flex-start'
+  },
+  image: {
+    width: 100,
+    height: 150,
+    marginRight: 20
+  },
+  scrollContainer: {
+    flex: 1,
+    marginBottom: 50
+  },
+  textSection: {
+    flex: 1
+  },
+  title: {
+    ...themeSettings.typography.textStyles.title,
+    marginBottom: 10
+  },
+  author: {
+    ...themeSettings.typography.textStyles.title,
+    marginBottom: 10
+  },
+  description: {
+    ...themeSettings.typography.textStyles.text,
+    flex: 1,
+    paddingTop: 20
+  },
+  backButton: {
+    backgroundColor: '#007AFF',
+    padding: 10,
+    width: '100%',
+    borderRadius: 5,
+    alignItems: 'center',
+    position: 'absolute',
+    bottom: 0,
+    ...(Platform.OS === 'ios'
+      ? {
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.5,
+        shadowRadius: 3
+      }
+      : {
+        elevation: 4
+      })
+  },
+  backButtonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: '600'
+  },
+  errorText: {
+    textAlign: 'center',
+    marginTop: 20,
+    fontSize: 18
+  },
+  favoriteButton: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    padding: 8,
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    borderRadius: 30,
+    zIndex: 1
+  },
+  favoriteIcon: {
+    fontSize: 24,
+    color: 'red'
+  }
+});
 
 const translated = translate('DetailsScreen')(DetailsScreen);
 

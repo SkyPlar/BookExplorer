@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image } from 'react-native';
 import { useSelector } from 'react-redux';
-import CustomText from './HomeScreen/components/CustomText';
 import { translate } from "react-translate";
+import CustomText from '../../components/CustomText';
 
 const FavoritesScreen = ({ navigation, t }) => {
   const translate = t || ((key) => key);
@@ -40,13 +40,13 @@ const FavoritesScreen = ({ navigation, t }) => {
             onPress={() => navigateToDetails(item)}
           >
             <Image
-              source={item.imageLinks?.thumbnail ? { uri: item.imageLinks.thumbnail } : require('../assets/images/book.png')}
+              source={item.imageLinks?.thumbnail ? { uri: item.imageLinks.thumbnail } : require('../../assets/images/book.png')}
               style={styles.image}
               resizeMode="contain"
             />
             <View style={styles.bookInfo}>
-              <CustomText type="title" text={item.title}>{item.title}</CustomText>
-              <CustomText type="author" text={item.authors?.join(', ')}>{item.authors?.join(', ')}</CustomText>
+              <CustomText type="title" text={item.title} />
+              <CustomText type="author" text={item.authors?.join(', ')} />
             </View>
           </TouchableOpacity>
         )}

@@ -2,6 +2,7 @@ const fontFamilyList = {
   Light: "Light",
   Regular: "Regular"
 };
+
 const themeSettings = {
   typography: {
     textStyles: {
