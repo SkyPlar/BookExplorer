@@ -2,7 +2,8 @@
   "locale": "en",
   "HomeScreen": {
     "searchPlaceholder": "Enter the name or author of the book",
-    "noBooksFound": "No books found"
+    "noBooksFound": "No books found",
+    "screenTitle": "Find something to read"
   },
   "DetailsScreen": {
     "noBookDetails": "No book details available. Please go back and try again.",

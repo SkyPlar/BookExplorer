@@ -1,21 +1,23 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { View, TextInput, FlatList, StyleSheet, Image, TouchableOpacity, Text, ActivityIndicator } from 'react-native';
 import axios from 'axios';
-import Book from '../../assets/images/book.png';
-import CustomText from './components/CustomText';
 import { translate } from "react-translate";
-import 'dotenv/config';
+import Book from '../../assets/images/book.png';
+import CustomText from '../../components/CustomText';
+// import 'dotenv/config';
 
-const keyToken = process.env.REACT_APP_API_KEY;
+const keyToken = 'AIzaSyATxrXOGuVHyB6WhfUpJ9C7uhAoxcI2RkI';
 
 const HomeScreen = ({ navigation, t }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [books, setBooks] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [shortQuery, setShortQuery] = useState(true);
 
   useEffect(() => {
     if (searchQuery.length > 2) {
       setIsLoading(true);
+      setShortQuery(false);
       const fetchBooks = async () => {
         const encodedQuery = encodeURIComponent(searchQuery);
         const url = `https://www.googleapis.com/books/v1/volumes?q=${encodedQuery}&key=${keyToken}`;
@@ -30,6 +32,7 @@ const HomeScreen = ({ navigation, t }) => {
       };
       fetchBooks();
     } else {
+      setShortQuery(true);
       setBooks([]);
     }
   }, [searchQuery]);
@@ -40,13 +43,20 @@ const HomeScreen = ({ navigation, t }) => {
 
   return (
     <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        placeholder={t('searchPlaceholder')}
-        value={searchQuery}
-        onChangeText={setSearchQuery}
-        clearButtonMode="while-editing"
-      />
+      <Text style={styles.title}>{t('screenTitle')} 🔎 📚</Text>
+      <View style={styles.searchInputWrapper}>
+        <TextInput
+          style={styles.input}
+          placeholder={t('searchPlaceholder')}
+          value={searchQuery}
+          onChangeText={setSearchQuery}
+          clearButtonMode="while-editing"
+        />
+        {
+          // add into translation
+          shortQuery && <Text style={styles.searchInputSubText}>Type more than 2 letters</Text>
+        }
+      </View>
       {isLoading && <ActivityIndicator size="large" color="#0000ff" />}
       {!isLoading && books.length === 0 && searchQuery.length > 2 && (
         <Text style={styles.noBooksText}>{t('noBooksFound')}</Text>
@@ -65,8 +75,8 @@ const HomeScreen = ({ navigation, t }) => {
               resizeMode="contain"
             />
             <View style={styles.bookInfo}>
-              <CustomText type="title" text={item.volumeInfo.title}>{item.volumeInfo.title}</CustomText>
-              <CustomText type="author" text={item.volumeInfo.authors?.join(', ')}>{item.volumeInfo.authors?.join(', ')}</CustomText>
+              <CustomText type="title" text={item.volumeInfo.title} />
+              <CustomText type="author" text={item.volumeInfo.authors?.join(', ')} />
             </View>
           </TouchableOpacity>
         )}
@@ -80,16 +90,30 @@ const styles = StyleSheet.create({
     flex: 1,
     marginRight: 15,
     marginLeft: 15,
-    paddingTop: 50,
+    paddingTop: 30,
     paddingHorizontal: 10,
+  },
+  title: {
+    fontSize: 21,
+    lineHeight: '28px',
+    color: 'tomato',
+    fontWeight: 600
+  },
+  searchInputWrapper: {
+    marginTop: 25,
+    marginBottom: 30,
   },
   input: {
     height: 40,
-    marginVertical: 15,
     borderWidth: 1,
     padding: 10,
     borderRadius: 10,
-    borderColor: '#ccc',
+    borderColor: '#969696',
+    marginBottom: 4
+  },
+  searchInputSubText: {
+    fontSize: 11,
+    color: 'blue',
   },
   bookItem: {
     flexDirection: 'row',

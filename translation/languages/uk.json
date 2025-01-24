@@ -2,7 +2,8 @@
   "locale": "uk",
   "HomeScreen": {
     "searchPlaceholder": "Введіть назву або автора книги",
-    "noBooksFound": "Книги не знайдено"
+    "noBooksFound": "Книги не знайдено",
+    "screenTitle": "Знайди щось почитати"
   },
   "DetailsScreen": {
     "noBookDetails": "Інформація про книгу відсутня. Будь ласка, поверніться назад і спробуйте ще раз.",
