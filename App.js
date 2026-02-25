@@ -1,7 +1,8 @@
 import React from 'react';
+import { Platform, Text } from 'react-native';
 import { Provider } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme as NavigationDefaultTheme, DarkTheme as NavigationDarkTheme, getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import * as Linking from 'expo-linking';
@@ -13,7 +14,7 @@ import { TranslatorProvider } from 'react-translate';
 import translations, { resolveInitialLocale } from './translation';
 import store from './store';
 import { useFonts } from 'expo-font';
-import { MaterialIcons } from '@expo/vector-icons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { ThemeProvider, useTheme } from './theme/ThemeProvider';
 import { MD3DarkTheme, MD3LightTheme, Provider as PaperProvider, Portal } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
@@ -59,13 +60,32 @@ const HomeTabs = ({ labels, appTheme }) => (
       },
       tabBarActiveTintColor: appTheme.colors.primary,
       tabBarInactiveTintColor: appTheme.colors.muted,
-      tabBarLabelStyle: { paddingBottom: 10, fontSize: 10 },
+      tabBarItemStyle: { paddingHorizontal: 2 },
+      tabBarLabel: ({ color }) => {
+        const routeLabel = labels[route.name] || route.name;
+        return (
+          <Text
+            numberOfLines={1}
+            adjustsFontSizeToFit
+            minimumFontScale={0.72}
+            style={{
+              color,
+              fontSize: 10,
+              paddingBottom: 2,
+              includeFontPadding: false,
+            }}
+          >
+            {routeLabel}
+          </Text>
+        );
+      },
       tabBarStyle: {
-        paddingVertical: 5, 
-        height: 60, 
-        marginBottom: 10,
+        paddingTop: 6,
+        paddingBottom: Platform.OS === 'ios' ? 10 : 6,
+        height: Platform.OS === 'ios' ? 74 : 64,
         backgroundColor: appTheme.colors.card,
         borderTopColor: appTheme.colors.border,
+        borderTopWidth: 1,
       },
       headerStyle: { backgroundColor: appTheme.colors.card },
       headerTintColor: appTheme.colors.text,
@@ -74,7 +94,15 @@ const HomeTabs = ({ labels, appTheme }) => (
     <Tab.Screen
       name="Home"
       component={HomeStack}
-      options={{ title: labels.Home || 'Home' }}
+      options={({ route }) => {
+        const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home';
+        const hideTabBar = routeName === 'Details' || routeName === 'WebView';
+
+        return {
+          title: labels.Home || 'Home',
+          tabBarStyle: hideTabBar ? { display: 'none' } : undefined,
+        };
+      }}
     />
     <Tab.Screen
       name="Categories"
@@ -101,6 +129,20 @@ const AppContent = () => {
   const activeLocale = translations[locale] ? locale : 'en';
   const activeTranslations = translations[activeLocale] || translations.en;
   const tabLabels = activeTranslations?.TabLabels || {};
+  const navigationTheme = React.useMemo(() => {
+    const baseTheme = appTheme.name === 'dark' ? NavigationDarkTheme : NavigationDefaultTheme;
+    return {
+      ...baseTheme,
+      colors: {
+        ...baseTheme.colors,
+        background: appTheme.colors.background,
+        card: appTheme.colors.card,
+        text: appTheme.colors.text,
+        border: appTheme.colors.border,
+        primary: appTheme.colors.primary,
+      },
+    };
+  }, [appTheme]);
 
   React.useEffect(() => {
     const restoreAppPreferences = async () => {
@@ -131,7 +173,7 @@ const AppContent = () => {
 
   return (
     <TranslatorProvider translations={activeTranslations}>
-      <NavigationContainer linking={linking}>
+      <NavigationContainer linking={linking} theme={navigationTheme}>
         <Portal.Host>
           <Drawer.Navigator screenOptions={{ headerShown: false }}>
             <Drawer.Screen name="Main" options={{ title: tabLabels.Home || 'Home' }}>

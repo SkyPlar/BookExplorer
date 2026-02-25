@@ -108,13 +108,16 @@ const HomeScreen = ({ navigation, t }) => {
     <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.background }}>
       <View style={[styles.container, { backgroundColor: theme.colors.background, paddingHorizontal: Math.max(10, width * 0.03) }] }>
       <TextInput
-        style={[styles.input, { borderColor: theme.colors.border }]}
+        style={[styles.input, { borderColor: theme.colors.border, color: theme.colors.text, backgroundColor: theme.colors.card }]}
         placeholder={t('searchPlaceholder')}
+        placeholderTextColor={theme.colors.muted}
         value={searchQuery}
           onChangeText={(value) => dispatch(setBooksQuery(value))}
         clearButtonMode="while-editing"
+        selectionColor={theme.colors.primary}
+        keyboardAppearance={theme.name === 'dark' ? 'dark' : 'light'}
       />
-        <Button mode="outlined" onPress={() => setIsFilterVisible(true)}>{t('filterSort')}</Button>
+        <Button style={styles.filterButton} mode="outlined" onPress={() => setIsFilterVisible(true)}>{t('filterSort')}</Button>
       {error && <Text style={[styles.errorText, { color: theme.colors.danger || 'red' }]}>{error}</Text>}
       {!isLoading && books.length === 0 && searchQuery.length > 2 && (
         <Text style={[styles.noBooksText, { color: theme.colors.text }]}>{t('noBooksFound')}</Text>
@@ -156,6 +159,7 @@ const HomeScreen = ({ navigation, t }) => {
       <FlatList
           data={isLoading ? [1, 2, 3] : visibleBooks}
           keyExtractor={(item, index) => (isLoading ? `skeleton-${index}` : item.id.toString())}
+          contentContainerStyle={styles.listContent}
         renderItem={({ item }) => (
             <BookCard
               book={isLoading ? null : item}
@@ -179,7 +183,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginRight: 15,
     marginLeft: 15,
-    paddingTop: 50,
+    paddingTop: 16,
     paddingHorizontal: 10,
   },
   input: {
@@ -189,6 +193,12 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     borderColor: '#ccc',
+  },
+  filterButton: {
+    marginBottom: 12,
+  },
+  listContent: {
+    paddingBottom: 16,
   },
   noBooksText: {
     textAlign: 'center',

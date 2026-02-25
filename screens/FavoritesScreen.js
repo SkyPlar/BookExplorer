@@ -40,9 +40,10 @@ const FavoritesScreen = ({ navigation, t }) => {
         <FlatList
           data={favorites}
           keyExtractor={(item) => item.id.toString()}
+          contentContainerStyle={styles.listContent}
           renderItem={({ item }) => (
             <TouchableOpacity
-              style={styles.bookItem}
+              style={[styles.bookItem, { borderBottomColor: theme.colors.border }]}
               onPress={() => navigateToDetails(item)}
             >
               <Image
@@ -65,10 +66,10 @@ const FavoritesScreen = ({ navigation, t }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 10,
+    marginTop: 0,
     marginRight: 15,
     marginLeft: 15,
-    paddingTop: 20,
+    paddingTop: 16,
     paddingHorizontal: 10,
   },
   header: {
@@ -83,6 +84,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderBottomWidth: 1,
     paddingBottom: 10,
+  },
+  listContent: {
+    paddingBottom: 16,
   },
   bookInfo: {
     flexDirection: 'column',

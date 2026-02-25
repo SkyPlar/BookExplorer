@@ -14,7 +14,7 @@ import {
 import themeSettings from '../../theme';
 import { useDispatch, useSelector } from 'react-redux';
 import { addFavorite, removeFavorite } from '../../actions';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { translate } from 'react-translate';
 import { useTheme } from '../../theme/ThemeProvider';
 import { requestMediaLibraryPermission } from '../../services/permissions';
@@ -98,8 +98,9 @@ const DetailsScreen = ({ route, navigation, t }) => {
 
   if (!book) {
     return (
-      <View style={styles.container}>
-        <Text style={styles.errorText}>{t('noBookDetails')}</Text>
+      <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.background }}>
+      <View style={[styles.container, { backgroundColor: theme.colors.background }] }>
+        <Text style={[styles.errorText, { color: theme.colors.text }]}>{t('noBookDetails')}</Text>
         <TouchableOpacity
           style={[styles.backButton, { backgroundColor: theme.colors.primary }]}
           onPress={() => navigation.goBack()}
@@ -107,6 +108,7 @@ const DetailsScreen = ({ route, navigation, t }) => {
           <Text style={[styles.backButtonText, { color: theme.colors.card }]}>{t('backToSearch')}</Text>
         </TouchableOpacity>
       </View>
+      </SafeAreaView>
     );
   }
 
@@ -134,10 +136,10 @@ const DetailsScreen = ({ route, navigation, t }) => {
                 <Text style={[styles.title, { color: theme.colors.text }]}>{title}</Text>
                 <Text style={[styles.author, { color: theme.colors.muted }]}>{authors.join(', ')}</Text>
               </View>
-              <TouchableOpacity style={styles.favoriteButton} onPress={toggleFavorite}>
+              <TouchableOpacity style={[styles.favoriteButton, { backgroundColor: theme.colors.card, borderColor: theme.colors.border }]} onPress={toggleFavorite}>
                 <MaterialCommunityIcons
                   name={isFavorite ? 'heart' : 'heart-outline'}
-                  style={styles.favoriteIcon}
+                  style={[styles.favoriteIcon, { color: theme.colors.danger }]}
                 />
               </TouchableOpacity>
             </View>
@@ -238,13 +240,12 @@ const styles = StyleSheet.create({
     top: 10,
     right: 10,
     padding: 8,
-    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    borderWidth: 1,
     borderRadius: 30,
     zIndex: 1
   },
   favoriteIcon: {
     fontSize: 24,
-    color: 'red'
   },
   actionButton: {
     paddingVertical: 12,
