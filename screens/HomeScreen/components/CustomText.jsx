@@ -15,7 +15,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: 'bold',
-    wordWrap: 'break-word',
     color: Platform.OS === 'ios' ? '#333' : '#000',
   },
   author: {

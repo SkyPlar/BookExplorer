@@ -1,12 +1,15 @@
 import React from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image, useWindowDimensions, SafeAreaView } from 'react-native';
 import { useSelector } from 'react-redux';
 import CustomText from './HomeScreen/components/CustomText';
 import { translate } from "react-translate";
+import { useTheme } from '../theme/ThemeProvider';
 
 const FavoritesScreen = ({ navigation, t }) => {
   const translate = t || ((key) => key);
   const favorites = useSelector(state => state.favorites.favorites) || [];
+  const { theme } = useTheme();
+  const { width } = useWindowDimensions();
 
   const navigateToDetails = (book) => {
     navigation.navigate('Home', {
@@ -21,37 +24,41 @@ const FavoritesScreen = ({ navigation, t }) => {
 
   if (favorites.length === 0) {
     return (
-      <View style={styles.container}>
-        <Text style={styles.header}>{translate('favoriteTitle')}</Text>
-        <Text style={styles.noFavoritesText}>{translate('noFavoriteBooks')}</Text>
-      </View>
+      <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.background }}>
+        <View style={[styles.container, { backgroundColor: theme.colors.background, paddingHorizontal: Math.max(12, width * 0.03) }]}>
+          <Text style={[styles.header, { color: theme.colors.text }]}>{translate('favoriteTitle')}</Text>
+          <Text style={[styles.noFavoritesText, { color: theme.colors.muted }]}>{translate('noFavoriteBooks')}</Text>
+        </View>
+      </SafeAreaView>
     );
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>{translate('favoriteTitle')}</Text>
-      <FlatList
-        data={favorites}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            style={styles.bookItem}
-            onPress={() => navigateToDetails(item)}
-          >
-            <Image
-              source={item.imageLinks?.thumbnail ? { uri: item.imageLinks.thumbnail } : require('../assets/images/book.png')}
-              style={styles.image}
-              resizeMode="contain"
-            />
-            <View style={styles.bookInfo}>
-              <CustomText type="title" text={item.title}>{item.title}</CustomText>
-              <CustomText type="author" text={item.authors?.join(', ')}>{item.authors?.join(', ')}</CustomText>
-            </View>
-          </TouchableOpacity>
-        )}
-      />
-    </View>
+    <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.background }}>
+      <View style={[styles.container, { backgroundColor: theme.colors.background, paddingHorizontal: Math.max(12, width * 0.03) }]}>
+        <Text style={[styles.header, { color: theme.colors.text }]}>{translate('favoriteTitle')}</Text>
+        <FlatList
+          data={favorites}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              style={styles.bookItem}
+              onPress={() => navigateToDetails(item)}
+            >
+              <Image
+                source={item.imageLinks?.thumbnail ? { uri: item.imageLinks.thumbnail } : require('../assets/images/book.png')}
+                style={styles.image}
+                resizeMode="contain"
+              />
+              <View style={styles.bookInfo}>
+                <CustomText type="title" text={item.title} style={{ color: theme.colors.text }}>{item.title}</CustomText>
+                <CustomText type="author" text={item.authors?.join(', ')} style={{ color: theme.colors.muted }}>{item.authors?.join(', ')}</CustomText>
+              </View>
+            </TouchableOpacity>
+          )}
+        />
+      </View>
+    </SafeAreaView>
   );
 };
 

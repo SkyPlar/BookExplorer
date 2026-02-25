@@ -2,13 +2,24 @@
   "locale": "en",
   "HomeScreen": {
     "searchPlaceholder": "Enter the name or author of the book",
-    "noBooksFound": "No books found"
+    "noBooksFound": "No books found",
+    "fetchError": "Could not load books. Please try again.",
+    "filterSort": "Filter & Sort",
+    "filterSortTitle": "List options",
+    "sortRelevance": "By relevance",
+    "sortTitle": "By title",
+    "sortAuthor": "By author",
+    "withCoverOnly": "With cover only",
+    "close": "Close"
   },
   "DetailsScreen": {
     "noBookDetails": "No book details available. Please go back and try again.",
     "backToSearch": "Back to Search",
     "noDescriptionAvailable": "No description available.",
-    "unknownTitle": "Unknown Title"
+    "unknownTitle": "Unknown Title",
+    "openPreview": "Open Preview",
+    "saveCover": "Save Cover",
+    "saving": "Saving..."
   },
   "FavoritesScreen": {
     "favoriteTitle": "Favorite Books",
@@ -22,5 +33,17 @@
     "Categories": "Categories",
     "Favorites": "Favorites",
     "Settings": "Settings"
+  },
+  "SettingsScreen": {
+    "settingsTitle": "Settings",
+    "darkMode": "Dark mode",
+    "language": "Language",
+    "pushNotifications": "Push notifications",
+    "enable": "Enable",
+    "permissionDenied": "Permission denied",
+    "pushEnabled": "Push notifications enabled",
+    "pushFailed": "Could not enable push notifications",
+    "pushPhysicalDeviceRequired": "Push notifications require a physical device.",
+    "pushToken": "Token"
   }
 }

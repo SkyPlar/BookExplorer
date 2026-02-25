@@ -1,11 +1,16 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, useWindowDimensions } from 'react-native';
+import { useTheme } from '../theme/ThemeProvider';
 
 const CategoriesScreen = () => {
+  const { theme } = useTheme();
+  const { width } = useWindowDimensions();
   return (
-    <View style={styles.container}>
-      <Text>Categories</Text>
-    </View>
+    <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.background }}>
+      <View style={[styles.container, { backgroundColor: theme.colors.background, paddingHorizontal: Math.max(12, width * 0.03) }]}>
+        <Text style={{ color: theme.colors.text }}>Categories</Text>
+      </View>
+    </SafeAreaView>
   );
 };
 

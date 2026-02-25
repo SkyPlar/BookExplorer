@@ -1,12 +1,13 @@
 {
   "expo": {
     "name": "Book Explorer",
-    "slug": "BookExplorer",
+    "slug": "bookStoreApp",
+    "scheme": "bookstoreapp",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "newArchEnabled": true,
+    "newArchEnabled": false,
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
@@ -14,7 +15,10 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.example.bookExplorer"
+      "bundleIdentifier": "com.kitsoftdevversion.bookstoreapp",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -27,8 +31,9 @@
     },
     "extra": {
       "eas": {
-        "projectId": "78db20dd-4ed0-48c7-9421-5fb487aea82c"
-      }
+        "projectId": "7805e848-1995-4471-88d0-29bea7ca620b"
+      },
+      "REACT_APP_API_KEY": "AIzaSyATxrXOGuVHyB6WhfUpJ9C7uhAoxcI2RkI"
     },
     "owner": "kitsoftdevversion"
   }
