@@ -39,7 +39,7 @@ GOOGLE_BOOKS_API_KEY=your_key_here
 ### iOS Transporter / сертифікати (коротко)
 - Створіть App ID і provisioning profile в Apple Developer, зв’яжіть із bundleId у app.config.js/Expo (якщо потрібно).
 - Увійдіть у Xcode/Transporter з Apple ID; завантажуйте .ipa з `eas build --platform ios --profile production` через Transporter або `eas submit --platform ios`.
-- Згенерований ascAppId (App Store Connect App ID) запишіть в `eas.json` → `submit.production.ios.ascAppId`.
+- Згенерований ascAppId (App Store Connect App ID) задайте через env: `export ASC_APP_ID=your_app_id` (в `eas.json` використовується `submit.production.ios.ascAppId = ${ASC_APP_ID}`).
 
 ### Debugging (RN Debugger / Flipper)
 - RN Debugger: запустіть `expo start`, відкрийте dev menu на пристрої/емуляторі та увімкніть remote debugging.
