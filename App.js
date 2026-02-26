@@ -122,6 +122,19 @@ const HomeTabs = ({ labels, appTheme }) => (
   </Tab.Navigator>
 );
 
+const MainTabsScreen = ({ navigation, labels, appTheme }) => {
+  React.useEffect(() => {
+    navigation.closeDrawer();
+    const unsubscribe = navigation.addListener('focus', () => {
+      navigation.closeDrawer();
+    });
+
+    return unsubscribe;
+  }, [navigation]);
+
+  return <HomeTabs labels={labels} appTheme={appTheme} />;
+};
+
 const AppContent = () => {
   const dispatch = useDispatch();
   const { theme: appTheme } = useTheme();
@@ -175,9 +188,18 @@ const AppContent = () => {
     <TranslatorProvider translations={activeTranslations}>
       <NavigationContainer linking={linking} theme={navigationTheme}>
         <Portal.Host>
-          <Drawer.Navigator screenOptions={{ headerShown: false }}>
+          <Drawer.Navigator
+            initialRouteName="Main"
+            defaultStatus="closed"
+            screenOptions={{
+              headerShown: false,
+              swipeEnabled: false,
+              overlayColor: 'transparent',
+              drawerType: 'back',
+            }}
+          >
             <Drawer.Screen name="Main" options={{ title: tabLabels.Home || 'Home' }}>
-              {() => <HomeTabs labels={tabLabels} appTheme={appTheme} />}
+              {(props) => <MainTabsScreen {...props} labels={tabLabels} appTheme={appTheme} />}
             </Drawer.Screen>
           </Drawer.Navigator>
         </Portal.Host>

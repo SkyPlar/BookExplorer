@@ -45,5 +45,9 @@
     "pushFailed": "Could not enable push notifications",
     "pushPhysicalDeviceRequired": "Push notifications require a physical device.",
     "pushToken": "Token"
+  },
+  "WebViewScreen": {
+    "back": "Back",
+    "close": "Close"
   }
 }

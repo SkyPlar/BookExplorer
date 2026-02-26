@@ -45,5 +45,9 @@
     "pushFailed": "Не вдалося увімкнути push-сповіщення",
     "pushPhysicalDeviceRequired": "Push-сповіщення працюють лише на фізичному пристрої.",
     "pushToken": "Токен"
+  },
+  "WebViewScreen": {
+    "back": "Назад",
+    "close": "Закрити"
   }
 }
