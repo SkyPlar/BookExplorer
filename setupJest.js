@@ -12,7 +12,9 @@ jest.mock('react-translate', () => ({
   },
 }));
 
-jest.mock('react-native-vector-icons/MaterialIcons', () => 'Icon');
-jest.mock('react-native-vector-icons/MaterialCommunityIcons', () => 'Icon');
+jest.mock('@expo/vector-icons', () => ({
+  MaterialIcons: 'Icon',
+  MaterialCommunityIcons: 'Icon',
+}), { virtual: true });
 
 jest.mock('expo-font', () => ({ useFonts: () => [true, false] }));

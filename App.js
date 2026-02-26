@@ -14,7 +14,7 @@ import { TranslatorProvider } from 'react-translate';
 import translations, { resolveInitialLocale } from './translation';
 import store from './store';
 import { useFonts } from 'expo-font';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { MaterialIcons } from '@expo/vector-icons';
 import { ThemeProvider, useTheme } from './theme/ThemeProvider';
 import { MD3DarkTheme, MD3LightTheme, Provider as PaperProvider, Portal } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';

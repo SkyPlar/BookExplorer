@@ -14,7 +14,7 @@ import {
 import themeSettings from '../../theme';
 import { useDispatch, useSelector } from 'react-redux';
 import { addFavorite, removeFavorite } from '../../actions';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { translate } from 'react-translate';
 import { useTheme } from '../../theme/ThemeProvider';
 import { requestMediaLibraryPermission } from '../../services/permissions';
