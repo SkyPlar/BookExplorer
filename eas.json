@@ -1,0 +1,34 @@
+{
+  "cli": {
+    "version": ">= 11.0.0",
+    "appVersionSource": "local"
+  },
+  "build": {
+    "development-simulator": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "ios": {
+        "simulator": true
+      }
+    },
+    "preview": {
+      "distribution": "internal",
+      "ios": {
+        "simulator": true
+      }
+    },
+    "production": {
+      "autoIncrement": true
+    }
+  },
+  "submit": {
+    "production": {
+      "android": {
+        "serviceAccountKeyPath": "./credentials/service-account.json"
+      },
+      "ios": {
+        "ascAppId": "${ASC_APP_ID}"
+      }
+    }
+  }
+}

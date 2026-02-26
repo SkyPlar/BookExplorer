@@ -1,14 +1,25 @@
 {
-  "locale": "uk",
+  "locale": "ru",
   "HomeScreen": {
     "searchPlaceholder": "Введіть назву або автора книги",
-    "noBooksFound": "Книги не знайдено"
+    "noBooksFound": "Книги не знайдено",
+    "fetchError": "Не вдалося завантажити книги. Спробуйте ще раз.",
+    "filterSort": "Фільтр і сортування",
+    "filterSortTitle": "Налаштування списку",
+    "sortRelevance": "За релевантністю",
+    "sortTitle": "За назвою",
+    "sortAuthor": "За автором",
+    "withCoverOnly": "Лише з обкладинкою",
+    "close": "Закрити"
   },
   "DetailsScreen": {
     "noBookDetails": "Інформація про книгу відсутня. Будь ласка, поверніться назад і спробуйте ще раз.",
     "backToSearch": "Повернутися до пошуку",
     "noDescriptionAvailable": "Опис відсутній.",
-    "unknownTitle": "Невідома назва"
+    "unknownTitle": "Невідома назва",
+    "openPreview": "Відкрити прев’ю",
+    "saveCover": "Зберегти обкладинку",
+    "saving": "Збереження..."
   },
   "FavoritesScreen": {
     "favoriteTitle": "Улюблені книги",
@@ -22,5 +33,21 @@
     "Categories": "Категорії",
     "Favorites": "Обрані",
     "Settings": "Налаштування"
+  },
+  "SettingsScreen": {
+    "settingsTitle": "Налаштування",
+    "darkMode": "Темна тема",
+    "language": "Мова",
+    "pushNotifications": "Push-сповіщення",
+    "enable": "Увімкнути",
+    "permissionDenied": "Дозвіл відхилено",
+    "pushEnabled": "Push-сповіщення увімкнено",
+    "pushFailed": "Не вдалося увімкнути push-сповіщення",
+    "pushPhysicalDeviceRequired": "Push-сповіщення працюють лише на фізичному пристрої.",
+    "pushToken": "Токен"
+  },
+  "WebViewScreen": {
+    "back": "Назад",
+    "close": "Закрити"
   }
 }
